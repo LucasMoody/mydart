@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Dart</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_create_player">CreatePlayerActivity</string>
+    <string name="title_activity_player_list">PlayerListActivity</string>
+    <string name="title_activity_chose_game">ChoseGameActivity</string>
+    <string name="title_activity_prepare_x01">PrepareX01Activity</string>
+    <string name="title_activity_x01">X01Activity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="de.lucaspradel.mydart.game.x01.PrepareX01Activity">
+
+    <TextView
+        android:id="@+id/playtype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="20dp"
+        android:text="Spielart" />
+
+    <EditText
+        android:id="@+id/et_choosePlayType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/playtype"
+        android:hint="301"
+        android:maxLength="3"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_add_contacts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Spiele 301" />
+
+    <ListView
+        android:id="@+id/contact_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/btn_add_contacts"
+        android:layout_below="@id/playtype" />
+
+</RelativeLayout>

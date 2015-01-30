@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_x01"/>
+      <point      
+        x = "1768"      
+        y = "4240"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_player_list"/>
+      <point      
+        x = "1768"      
+        y = "2860"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_chose_game"/>
+      <point      
+        x = "1768"      
+        y = "1480"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.Dashboard"/>
+      <point      
+        x = "480"      
+        y = "160"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.player.CreatePlayerActivity"/>
+      <point      
+        x = "500"      
+        y = "5620"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.game.ChoseGameActivity"/>
+      <point      
+        x = "500"      
+        y = "1480"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.player.PlayerListActivity"/>
+      <point      
+        x = "500"      
+        y = "2860"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_dashboard"/>
+      <point      
+        x = "1748"      
+        y = "160"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.game.x01.PrepareX01Activity"/>
+      <point      
+        x = "550"      
+        y = "5670"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "de.lucaspradel.mydart.game.x01.X01Activity"/>
+      <point      
+        x = "500"      
+        y = "4240"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

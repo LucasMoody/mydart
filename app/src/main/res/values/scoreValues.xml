@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="score0">0</string>
+    <string name="score1">1</string>
+    <string name="score2">2</string>
+    <string name="score3">3</string>
+    <string name="score4">4</string>
+    <string name="score5">5</string>
+    <string name="score6">6</string>
+    <string name="score7">7</string>
+    <string name="score8">8</string>
+    <string name="score9">9</string>
+    <string name="score10">10</string>
+    <string name="score11">11</string>
+    <string name="score12">12</string>
+    <string name="score13">13</string>
+    <string name="score14">14</string>
+    <string name="score15">15</string>
+    <string name="score16">16</string>
+    <string name="score17">17</string>
+    <string name="score18">18</string>
+    <string name="score19">19</string>
+    <string name="score20">20</string>
+    <string name="scoreB">B</string>
+    <string name="scoreD">D</string>
+    <string name="scoreT">T</string>
+</resources>

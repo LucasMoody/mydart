@@ -1,0 +1,477 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="de.lucaspradel.mydart.game.x01.X01Activity$PlaceholderFragment">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_scoreSection"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginBottom="8dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/photo_1"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:contentDescription="Test"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_playerName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/photo_1"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Disco Kev"/>
+
+        <TextView
+            android:id="@+id/tv_scorePlayer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/photo_1"
+            android:text="301"
+            android:textSize="38sp" />
+
+        <ImageView
+            android:id="@+id/photo_2"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_alignParentRight="true"
+            android:contentDescription="Test"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_playerName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/photo_2"
+            android:layout_below="@id/photo_2"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:text="Hohlic" />
+
+        <TextView
+            android:id="@+id/tv_scorePlayer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@id/photo_2"
+            android:textSize="38sp" />
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_below="@id/layout_scoreSection"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/tv_score1"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginRight="18dp"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_score2"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginRight="18dp"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_score3"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:textSize="18sp"/>
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:text="\u232B"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/btn_accept"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:text="\u2713"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/button_gap_small"
+            android:paddingRight="@dimen/button_gap_small"
+            android:paddingTop="@dimen/button_gap_small"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score0"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score1"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score2"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score3"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score4"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score5"/>
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/button_gap_small"
+            android:paddingRight="@dimen/button_gap_small"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score6"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score7"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score8"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score9"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score10"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score11"/>
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/button_gap_small"
+            android:paddingRight="@dimen/button_gap_small"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score12"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score13"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score14"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score15"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score16"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score17"/>
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/button_gap_small"
+            android:paddingRight="@dimen/button_gap_small"
+            android:paddingTop="@dimen/button_gap_small"
+            android:paddingBottom="@dimen/button_gap_small"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_D"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/scoreD"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score18"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_19"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score19"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/score20"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/button_gap_small">
+                <Button
+                    android:id="@+id/btn_B"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/scoreB"/>
+
+            </de.lucaspradel.mydart.view.SquareLayout>
+            <de.lucaspradel.mydart.view.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_T"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/scoreT"/>
+            </de.lucaspradel.mydart.view.SquareLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
