@@ -41,8 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/photo_1"
+            android:layout_toEndOf="@id/photo_1"
+            android:layout_below="@id/tv_legsNamePlayer1"
             android:text="301"
             android:textSize="38sp" />
 
@@ -69,9 +70,75 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
             android:layout_toLeftOf="@id/photo_2"
-            android:textSize="38sp" />
+            android:layout_toStartOf="@id/photo_2"
+            android:layout_below="@id/tv_legsNamePlayer2"
+            android:textSize="38sp"
+            android:text="301"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_noSetsPlayer2"
+            android:layout_below="@+id/tv_scorePlayer2"
+            android:layout_toRightOf="@id/tv_setsNamePlayer2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Sets "
+            android:id="@+id/tv_setsNamePlayer2"
+            android:layout_below="@id/tv_scorePlayer2"
+            android:layout_alignLeft="@id/tv_scorePlayer2"
+            android:layout_alignStart="@id/tv_scorePlayer2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_noLegsPlayer2"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/tv_legsNamePlayer2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Legs "
+            android:id="@+id/tv_legsNamePlayer2"
+            android:layout_alignLeft="@id/tv_scorePlayer2"
+            android:layout_alignStart="@id/tv_scorePlayer2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Sets "
+            android:id="@+id/tv_setsNamePlayer1"
+            android:layout_below="@+id/tv_scorePlayer1"
+            android:layout_alignLeft="@+id/tv_scorePlayer1"
+            android:layout_alignStart="@+id/tv_scorePlayer1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_noSetsPlayer1"
+            android:layout_below="@id/tv_scorePlayer1"
+            android:layout_toRightOf="@id/tv_setsNamePlayer1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Legs "
+            android:id="@+id/tv_legsNamePlayer1"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@id/tv_scorePlayer1"
+            android:layout_alignStart="@id/tv_scorePlayer1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_noLegsPlayer1"
+            android:layout_toRightOf="@id/tv_legsNamePlayer1"/>
     </RelativeLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView

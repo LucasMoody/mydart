@@ -4,19 +4,18 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.lucaspradel.mydart.R;
+import de.lucaspradel.mydart.model.data.manager.X01GameManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,17 +31,27 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
     private int points;
     private int legs;
     private int sets;
+    private boolean doubleIn;
+    private boolean doubleOut;
+    private boolean bestOf;
+    private int curSet = 1;
+    private int curLeg = 1;
     private OnFragmentInteractionListener mListener;
     private List<Button> scoreBtns;
     private List<GamePlayer> players;
     private GamePlayer curPlayer;
     private int curPlayerPosition = 0;
+    private int curSetBeginnerPosition = 0;
+    private int curLegBeginnerPosition = 0;
     private int[][] scoreRound = new int[3][2];
     private int curPosition = -1;
     private boolean overthrown = false;
     private TextView curPlayerScore;
     private TextView[] scoringRoundViews;
     private List<TextView> playerScoresList;
+    private List<TextView> playerLegList;
+    private List<TextView> playerSetList;
+    private X01GameManager x01GameManager;
 
     /**
      * Use this factory method to create a new instance of
@@ -66,15 +75,21 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         players = new ArrayList<>();
         initGameParameters(getArguments());
+        x01GameManager = new X01GameManager(getActivity().getApplicationContext());
+        x01GameManager.createX01Game(points, doubleIn, doubleOut, bestOf, legs, sets, new Date());
     }
 
     private void initGameParameters(Bundle bundle) {
         points = bundle.getInt("playType");
         legs = bundle.getInt("legs");
         sets = bundle.getInt("sets");
+        doubleIn = bundle.getBoolean("doubleIn");
+        doubleOut = bundle.getBoolean("doubleOut");
+        bestOf = bundle.getBoolean("bestOf");
         String[] playerNames = bundle.getStringArray("playerNames");
-        for (String playerName : playerNames) {
-            players.add(new GamePlayer(points, legs,sets, playerName));
+        int[] playerIds = bundle.getIntArray("playerIds");
+        for (int i = 0; i<playerNames.length; i++) {
+            players.add(new GamePlayer(points, legs,sets, playerNames[i], playerIds[i]));
         }
         curPlayer = players.get(0);
     }
@@ -90,7 +105,21 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         initScoringRoundViews(view);
         addProcessBtnListeners(view);
         initPlayerNameViews(view);
+        initViews(view);
         return view;
+    }
+
+    private void initViews(View view) {
+        playerLegList = new ArrayList<>();
+        TextView noLegsPlayer1 = (TextView) view.findViewById(R.id.tv_noLegsPlayer1);
+        TextView noLegsPlayer2 = (TextView) view.findViewById(R.id.tv_noLegsPlayer2);
+        playerLegList.add(noLegsPlayer1);
+        playerLegList.add(noLegsPlayer2);
+        playerSetList = new ArrayList<>();
+        TextView noSetsPlayer1 = (TextView) view.findViewById(R.id.tv_noSetsPlayer1);
+        TextView noSetsPlayer2 = (TextView) view.findViewById(R.id.tv_noSetsPlayer2);
+        playerSetList.add(noSetsPlayer1);
+        playerSetList.add(noSetsPlayer2);
     }
 
     private void initPlayerNameViews(View view) {
@@ -149,7 +178,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
             tv.setText("");
         }
         curPosition = -1;
-        curPlayerPosition = getNextPlayerPosition();
+        curPlayerPosition = getNextPlayerPosition(curPlayerPosition);
         curPlayer = players.get(curPlayerPosition);
         curPlayerScore = playerScoresList.get(curPlayerPosition);
         overthrown = false;
@@ -159,8 +188,8 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         //- insert in db
     }
 
-    private int getNextPlayerPosition() {
-        return curPlayerPosition >= players.size() - 1 ? 0 : curPlayerPosition + 1;
+    private int getNextPlayerPosition(int position) {
+        return position >= players.size() - 1 ? 0 : position + 1;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -261,7 +290,77 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
     }
 
     private void playerFinished() {
-        Log.e("Player finished", "Player finito");
+        boolean legIncr = false;
+        //Satz in DB speichern
+        x01GameManager.insertSetWinner(curPlayer.getId(), curLeg, curSet);
+        if (bestOf) {
+            if (curPlayer.getSets() < sets) {
+                curPlayer.setSets(curPlayer.getSets() + 1);
+                curSet++;
+            } else {
+                curSet = 1;
+                curLeg++;
+                curPlayer.setSets(0);
+                curPlayer.setLegs(curPlayer.getLegs() + 1);
+                legIncr = true;
+            }
+        } else {
+            if (curSet < sets) {
+                curSet++;
+                curPlayer.setSets(curPlayer.getSets() + 1);
+            } else {
+                curSet = 1;
+                curLeg++;
+                curPlayer.setSets(0);
+                GamePlayer curLeader = players.get(0);
+                int curMax = 0;
+                for (GamePlayer player : players) {
+                    if (player.getSets() > curMax) {
+                        curMax = player.getSets();
+                        curLeader = player;
+                    }
+                }
+                curLeader.setLegs(curLeader.getLegs() + 1);
+                legIncr = true;
+            }
+        }
+        //wahrscheinlich geht auch curPlayer.getLegs() > legs || curLeg>legs
+        if ((bestOf && curPlayer.getLegs() > legs) || curLeg>legs) {
+           gameOver();
+        }
+
+        //update set und leg views
+        for(int i = 0; i<players.size(); i++) {
+            //TODO in Römische Zeichen
+            playerSetList.get(i).setText(String.valueOf(players.get(i).getSets()));
+            playerLegList.get(i).setText(String.valueOf(players.get(i).getLegs()));
+        }
+        //accept um Daten in DB zu speichern und Views zu aktualisieren
+        accept();
+        resetRound(legIncr);
+    }
+
+    private void gameOver() {
+
+    }
+
+    private void resetRound(boolean leg) {
+        //scoringRoundView auf auf leer
+        curPosition = -1;
+        if (leg) {
+            curPlayerPosition = getNextPlayerPosition(curLegBeginnerPosition);
+            curLegBeginnerPosition = curPlayerPosition;
+            curSetBeginnerPosition = curPlayerPosition;
+        } else {
+            curPlayerPosition = getNextPlayerPosition(curSetBeginnerPosition);
+            curSetBeginnerPosition = curPlayerPosition;
+        }
+        curPlayer = players.get(curPlayerPosition);
+        for (GamePlayer player : players) {
+            player.setScore(points);
+        }
+        updateCurPlayerScoreView();
+        updateCurPlayerScoreView();
     }
 
     private void overthrown(int delta) {

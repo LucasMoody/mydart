@@ -5,16 +5,18 @@ package de.lucaspradel.mydart.game.x01;
  */
 public class GamePlayer {
 
+    private final int id;
     private String name;
     private int score;
     private int legs;
     private int sets;
 
-    public GamePlayer(int score, int legs, int sets, String name) {
+    public GamePlayer(int score, int legs, int sets, String name, int id) {
         this.score = score;
         this.legs = legs;
         this.sets = sets;
         this.name = name;
+        this.id = id;
     }
 
     public String getName() {
@@ -47,5 +49,9 @@ public class GamePlayer {
 
     public void setSets(int sets) {
         this.sets = sets;
+    }
+
+    public int getId() {
+        return id;
     }
 }

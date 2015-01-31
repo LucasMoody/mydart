@@ -48,7 +48,7 @@ public class DatabaseContract {
         public static final String COLUMN_NAME_DOUBLE_OUT = "doubleout";
         public static final String COLUMN_NAME_DOUBLE_IN = "doublein";
         public static final String COLUMN_NAME_DATE = "date";
-        public static final String COLUMN_NAME_BEST_OF = "besof";
+        public static final String COLUMN_NAME_BEST_OF = "bestof";
         public static final String COLUMN_NAME_WINNING_LEGS = "winninglegs";
         public static final String COLUMN_NAME_WINNING_SETS = "winningsets";
     }
