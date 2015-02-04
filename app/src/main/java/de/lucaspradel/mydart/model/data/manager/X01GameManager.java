@@ -26,11 +26,11 @@ public class X01GameManager {
     }
 
     public void insertX01Score(int playerId, int hitSection, int multiplier, int numberOfThrow, int scoringRound, int pointsLeft, boolean overthrown, int leg, int set) {
-
+        new InsertX01ScoreTask().execute(new X01Score(playerId, hitSection, multiplier, numberOfThrow, scoringRound, pointsLeft, overthrown, leg, set));
     }
 
     public void insertSetWinner(int playerId, int leg, int set) {
-
+        new InsertSetWinnerTask().execute(playerId, leg, set);
     }
 
     private class CreateX01GameTask extends AsyncTask<X01Game, Void, Long> {
@@ -67,7 +67,7 @@ public class X01GameManager {
             cv.put(DatabaseContract.X01Scores.COLUMN_NAME_SCORING_ROUND, score.getScoringRound());
             cv.put(DatabaseContract.X01Scores.COLUMN_NAME_POINTS_LEFT, score.getPointsLeft());
             cv.put(DatabaseContract.X01Scores.COLUMN_NAME_OVERTHROWN, score.isOverthrown());
-            cv.put(DatabaseContract.X01Scores.COLUMN_NAME_SET, score.getLeg());
+            cv.put(DatabaseContract.X01Scores.COLUMN_NAME_LEG, score.getLeg());
             cv.put(DatabaseContract.X01Scores.COLUMN_NAME_SET, score.getSet());
             dbHelper.getWritableDatabase().insert(DatabaseContract.X01Scores.TABLE_NAME, null, cv);
             return null;

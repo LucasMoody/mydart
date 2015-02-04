@@ -10,6 +10,7 @@ public class GamePlayer {
     private int score;
     private int legs;
     private int sets;
+    private int scoringRound = 1;
 
     public GamePlayer(int score, int legs, int sets, String name, int id) {
         this.score = score;
@@ -50,8 +51,13 @@ public class GamePlayer {
     public void setSets(int sets) {
         this.sets = sets;
     }
-
     public int getId() {
         return id;
+    }
+    public int getScoringRound() {
+        return scoringRound;
+    }
+    public void setScoringRound(int scoringRound) {
+        this.scoringRound = scoringRound;
     }
 }

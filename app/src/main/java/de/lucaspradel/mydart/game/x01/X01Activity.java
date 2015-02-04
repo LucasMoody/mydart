@@ -1,5 +1,6 @@
 package de.lucaspradel.mydart.game.x01;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import de.lucaspradel.mydart.Dashboard;
 import de.lucaspradel.mydart.R;
 
 public class X01Activity extends ActionBarActivity implements ScoreFragment.OnFragmentInteractionListener, StatisticsFragment.OnFragmentInteractionListener{
@@ -30,6 +32,7 @@ public class X01Activity extends ActionBarActivity implements ScoreFragment.OnFr
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    private boolean finished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,4 +74,5 @@ public class X01Activity extends ActionBarActivity implements ScoreFragment.OnFr
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }

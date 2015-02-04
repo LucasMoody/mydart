@@ -28,6 +28,8 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
     private ListView contactList;
     private EditText playtypeET;
     private int playType = 301;
+    private EditText setConfiguration;
+    private EditText legConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,8 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
                                       int count) {}
 
         });
+        setConfiguration = (EditText) findViewById(R.id.et_chooseNumberOfSets);
+        legConfiguration = (EditText) findViewById(R.id.et_chooseNumberOfLegs);
     }
 
     @Override
@@ -92,8 +96,25 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
         bundle.putIntArray("playerIds", selectedPlayerIds);
         bundle.putStringArray("playerNames", selectedPlayerNames);
         bundle.putInt("playType", playType);
-        bundle.putInt("legs", 3);
-        bundle.putInt("sets", 3);
+        int set;
+        String setText = setConfiguration.getText().toString();
+        if (setText.equals("")) {
+            set = 1;
+        } else {
+            set = Integer.valueOf(setText);
+        }
+        int leg;
+        String legText = legConfiguration.getText().toString();
+        if (legText.equals("")) {
+            leg = 1;
+        } else {
+            leg = Integer.valueOf(legText);
+        }
+        bundle.putInt("legs", leg);
+        bundle.putInt("sets", set);
+        bundle.putBoolean("bestOf", true);
+        bundle.putBoolean("doubleIn", false);
+        bundle.putBoolean("doubleOut", false);
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -7,16 +7,16 @@ import android.provider.BaseColumns;
  */
 public class DatabaseContract {
 
+    public static abstract class Training implements BaseColumns {
+
+        public static final String TABLE_NAME = "training";
+        public static final String COLUMN_NAME_PLAYER = "player";
+        public static final String COLUMN_NAME_DATE = "date";
+    }
     public static abstract class Player implements BaseColumns {
         public static final String TABLE_NAME = "player";
         public static final String COLUMN_NAME_USER_NAME = "username";
         public static final String COLUMN_NAME_IMAGE = "image";
-    }
-
-    public static abstract class Training implements BaseColumns {
-        public static final String TABLE_NAME = "training";
-        public static final String COLUMN_NAME_PLAYER = "player";
-        public static final String COLUMN_NAME_DATE = "date";
     }
 
     public static abstract class TrainingSession implements BaseColumns {

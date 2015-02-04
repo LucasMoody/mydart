@@ -1,9 +1,13 @@
 package de.lucaspradel.mydart.game.x01;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.lucaspradel.mydart.Dashboard;
 import de.lucaspradel.mydart.R;
 import de.lucaspradel.mydart.model.data.manager.X01GameManager;
 
@@ -48,7 +53,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
     private boolean overthrown = false;
     private TextView curPlayerScore;
     private TextView[] scoringRoundViews;
-    private List<TextView> playerScoresList;
+    private List<TextView> playerScoreList;
     private List<TextView> playerLegList;
     private List<TextView> playerSetList;
     private X01GameManager x01GameManager;
@@ -89,7 +94,7 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         String[] playerNames = bundle.getStringArray("playerNames");
         int[] playerIds = bundle.getIntArray("playerIds");
         for (int i = 0; i<playerNames.length; i++) {
-            players.add(new GamePlayer(points, legs,sets, playerNames[i], playerIds[i]));
+            players.add(new GamePlayer(points, 0,0, playerNames[i], playerIds[i]));
         }
         curPlayer = players.get(0);
     }
@@ -107,6 +112,12 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         initPlayerNameViews(view);
         initViews(view);
         return view;
+    }
+
+    private void finishGame() {
+        Intent dashboard = new Intent(getActivity(), Dashboard.class);
+        dashboard.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        getActivity().startActivity(dashboard);
     }
 
     private void initViews(View view) {
@@ -173,14 +184,33 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void saveThrows() {
+        int scoreBeforeCurSave = curPlayer.getScore();
+        if (!overthrown) {
+            for (int i = 0; i<=curPosition; i++) {
+                scoreBeforeCurSave += scoreRound[i][0] * scoreRound[i][1];
+            }
+        }
+        for (int i=0; i<=curPosition; i++) {
+            if (overthrown && i==curPosition) {
+                x01GameManager.insertX01Score(curPlayer.getId(), scoreRound[i][0], scoreRound[i][1], i + 1, curPlayer.getScoringRound(), scoreBeforeCurSave, true, curLeg, curSet);
+            } else {
+                x01GameManager.insertX01Score(curPlayer.getId(), scoreRound[i][0], scoreRound[i][1], i + 1, curPlayer.getScoringRound(), scoreBeforeCurSave, false, curLeg, curSet);
+                scoreBeforeCurSave -= scoreRound[i][0] * scoreRound[i][1];
+            }
+        }
+    }
+
     private void accept() {
+        saveThrows();
+        curPlayer.setScoringRound(curPlayer.getScoringRound() + 1);
         for (TextView tv : scoringRoundViews) {
             tv.setText("");
         }
         curPosition = -1;
         curPlayerPosition = getNextPlayerPosition(curPlayerPosition);
         curPlayer = players.get(curPlayerPosition);
-        curPlayerScore = playerScoresList.get(curPlayerPosition);
+        curPlayerScore = playerScoreList.get(curPlayerPosition);
         overthrown = false;
         //- reset ScoreViews
         //- change curPlayer
@@ -294,24 +324,22 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         //Satz in DB speichern
         x01GameManager.insertSetWinner(curPlayer.getId(), curLeg, curSet);
         if (bestOf) {
-            if (curPlayer.getSets() < sets) {
+            if (curPlayer.getSets() + 1 < sets) {
                 curPlayer.setSets(curPlayer.getSets() + 1);
                 curSet++;
             } else {
                 curSet = 1;
                 curLeg++;
-                curPlayer.setSets(0);
                 curPlayer.setLegs(curPlayer.getLegs() + 1);
                 legIncr = true;
             }
         } else {
-            if (curSet < sets) {
+            if (curSet + 1 < sets) {
                 curSet++;
                 curPlayer.setSets(curPlayer.getSets() + 1);
             } else {
                 curSet = 1;
                 curLeg++;
-                curPlayer.setSets(0);
                 GamePlayer curLeader = players.get(0);
                 int curMax = 0;
                 for (GamePlayer player : players) {
@@ -325,42 +353,65 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
             }
         }
         //wahrscheinlich geht auch curPlayer.getLegs() > legs || curLeg>legs
-        if ((bestOf && curPlayer.getLegs() > legs) || curLeg>legs) {
-           gameOver();
-        }
 
-        //update set und leg views
-        for(int i = 0; i<players.size(); i++) {
-            //TODO in Römische Zeichen
-            playerSetList.get(i).setText(String.valueOf(players.get(i).getSets()));
-            playerLegList.get(i).setText(String.valueOf(players.get(i).getLegs()));
-        }
         //accept um Daten in DB zu speichern und Views zu aktualisieren
         accept();
         resetRound(legIncr);
+        if ((bestOf && curPlayer.getLegs() >= legs) || curLeg - 1 >=legs) {
+            gameOver();
+        }
     }
 
     private void gameOver() {
-
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+// 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(curPlayer.getName() + " hat gewonnen!")
+                .setTitle("GEWONNEN").setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishGame();
+                    }
+                });
+        builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finishGame();
+                }
+                return false;
+            }
+        });
+// 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void resetRound(boolean leg) {
         //scoringRoundView auf auf leer
         curPosition = -1;
         if (leg) {
-            curPlayerPosition = getNextPlayerPosition(curLegBeginnerPosition);
-            curLegBeginnerPosition = curPlayerPosition;
-            curSetBeginnerPosition = curPlayerPosition;
+            curPlayerPosition = curLegBeginnerPosition = curSetBeginnerPosition = getNextPlayerPosition(curLegBeginnerPosition);
         } else {
-            curPlayerPosition = getNextPlayerPosition(curSetBeginnerPosition);
-            curSetBeginnerPosition = curPlayerPosition;
+            curPlayerPosition = curSetBeginnerPosition = getNextPlayerPosition(curSetBeginnerPosition);
         }
         curPlayer = players.get(curPlayerPosition);
         for (GamePlayer player : players) {
             player.setScore(points);
+            player.setScoringRound(1);
+            if (leg) {
+                player.setSets(0);
+            }
         }
-        updateCurPlayerScoreView();
-        updateCurPlayerScoreView();
+        //update set und leg views
+        for(int i = 0; i<players.size(); i++) {
+            //TODO in Römische Zeichen
+            playerSetList.get(i).setText(String.valueOf(players.get(i).getSets()));
+            playerLegList.get(i).setText(String.valueOf(players.get(i).getLegs()));
+        }
+        curPlayer = players.get(curPlayerPosition);
+        curPlayerScore = playerScoreList.get(curPlayerPosition);
+        updateAllPlayerScoreViews();
+        updateScoringRoundViews();
     }
 
     private void overthrown(int delta) {
@@ -385,6 +436,12 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
 
     private void updateCurPlayerScoreView() {
         curPlayerScore.setText(String.valueOf(curPlayer.getScore()));
+    }
+
+    private void updateAllPlayerScoreViews() {
+        for (int i = 0; i<playerScoreList.size(); i++) {
+            playerScoreList.get(i).setText(String.valueOf(players.get(i).getScore()));
+        }
     }
 
     private boolean checkValidScore() {
@@ -439,10 +496,10 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         TextView playerScore2 = (TextView) view.findViewById(R.id.tv_scorePlayer2);
         playerScore1.setText(String.valueOf(players.get(0).getScore()));
         playerScore2.setText(String.valueOf(players.get(1).getScore()));
-        playerScoresList = new ArrayList<>();
-        playerScoresList.add(playerScore1);
-        playerScoresList.add(playerScore2);
-        curPlayerScore = playerScoresList.get(0);
+        playerScoreList = new ArrayList<>();
+        playerScoreList.add(playerScore1);
+        playerScoreList.add(playerScore2);
+        curPlayerScore = playerScoreList.get(0);
     }
 
     private void initScoringRoundViews(View view) {
