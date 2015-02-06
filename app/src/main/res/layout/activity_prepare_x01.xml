@@ -76,19 +76,45 @@
         android:textSize="18sp"
         android:inputType="number"/>
     </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:id="@+id/playersInMatch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="Lucas"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:text="vs"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:text="Nico"
+            android:gravity="end"/>
+
+        </LinearLayout>
+
+    <ListView
+        android:id="@+id/contact_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/playersInMatch" />
 
     <Button
         android:id="@+id/btn_add_contacts"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/contact_list"
         android:text="Spiele 301" />
-
-    <ListView
-        android:id="@+id/contact_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/btn_add_contacts"
-        android:layout_below="@id/set" />
 
 </RelativeLayout>
