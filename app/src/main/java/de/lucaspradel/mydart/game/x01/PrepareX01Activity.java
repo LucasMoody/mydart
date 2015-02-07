@@ -9,10 +9,13 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,6 +33,10 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
     private int playType = 301;
     private EditText setConfiguration;
     private EditText legConfiguration;
+    private Player player1;
+    private Player player2;
+    private TextView player2Name;
+    private TextView player1Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +48,37 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
     }
 
     private void findViewsById() {
+        this.player1Name = (TextView) findViewById(R.id.tv_player1);
+        player1Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player1Name.setText("");
+                player1 = null;
+            }
+        });
+        this.player2Name = (TextView) findViewById(R.id.tv_player2);
+        player2Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player2Name.setText("");
+                player2 = null;
+            }
+        });
         this.addPlayer = (Button) findViewById(R.id.btn_add_contacts);
         addPlayer.setOnClickListener(this);
         this.contactList = (ListView) findViewById(R.id.contact_list);
-        contactList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        contactList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (player1 == null) {
+                    player1 = players.get(position);
+                    player1Name.setText(player1.getUsername());
+                } else if (player2 == null) {
+                    player2 = players.get(position);
+                    player2Name.setText(player2.getUsername());
+                }
+            }
+        });
         this.playtypeET = (EditText) findViewById(R.id.et_choosePlayType);
         playtypeET.addTextChangedListener(new TextWatcher() {
 
@@ -56,12 +90,16 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
                     playType = Integer.valueOf(s.toString());
                 addPlayer.setText("Spiele " + playType);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {}
+                                          int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {}
+                                      int count) {
+            }
 
         });
         setConfiguration = (EditText) findViewById(R.id.et_chooseNumberOfSets);
@@ -77,20 +115,24 @@ public class PrepareX01Activity extends ActionBarActivity implements PlayerManag
         }
         contactList
                 .setAdapter(new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_multiple_choice,
+                        android.R.layout.simple_list_item_1,
                         playerNames));
     }
 
     @Override
     public void onClick(View v) {
-        SparseBooleanArray checked = contactList.getCheckedItemPositions();
-        int[] selectedPlayerIds = new int[checked.size()];
-        String[] selectedPlayerNames = new String[checked.size()];
-        for (int i = 0; i < checked.size(); i++) {
-            int position = checked.keyAt(i);
-            selectedPlayerIds[i] = players.get(position).getId();
-            selectedPlayerNames[i] = players.get(position).getUsername();
+        //SparseBooleanArray checked = contactList.getCheckedItemPositions();
+        if (player1 == null || player2 == null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Es müssen zwei Spieler ausgewählt sein!", Toast.LENGTH_LONG);
+            toast.show();
+            return;
         }
+        int[] selectedPlayerIds = new int[2];
+        String[] selectedPlayerNames = new String[2];
+        selectedPlayerIds[0] = player1.getId();
+        selectedPlayerNames[0] = player1.getUsername();
+        selectedPlayerIds[1] = player2.getId();
+        selectedPlayerNames[1] = player2.getUsername();
         Intent intent = new Intent(getApplicationContext(), X01Activity.class);
         Bundle bundle = new Bundle();
         bundle.putIntArray("playerIds", selectedPlayerIds);

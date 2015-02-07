@@ -11,6 +11,7 @@ import android.widget.Button;
 import de.lucaspradel.mydart.game.ChoseGameActivity;
 import de.lucaspradel.mydart.player.CreatePlayerActivity;
 import de.lucaspradel.mydart.player.PlayerListActivity;
+import de.lucaspradel.mydart.statistics.StatisticsOverviewActivity;
 
 
 public class Dashboard extends ActionBarActivity {
@@ -18,6 +19,7 @@ public class Dashboard extends ActionBarActivity {
     private Button newPlayerBtn;
     private Button playerList;
     private Button newGame;
+    private Button statisticsOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,13 @@ public class Dashboard extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Dashboard.this, ChoseGameActivity.class));
+            }
+        });
+        statisticsOverview = (Button) findViewById(R.id.btn_statistics);
+        statisticsOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this, StatisticsOverviewActivity.class));
             }
         });
     }

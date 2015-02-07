@@ -77,7 +77,7 @@
         android:inputType="number"/>
     </LinearLayout>
     <LinearLayout
-        android:paddingLeft="30dp"
+        android:paddingLeft="25dp"
         android:paddingRight="30dp"
         android:id="@+id/playersInMatch"
         android:layout_width="fill_parent"
@@ -85,22 +85,26 @@
         android:layout_below="@id/set">
 
         <TextView
+            android:id="@+id/tv_player1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="40"
-            android:text="Lucas"/>
+            android:gravity="end"
+            android:textSize="22sp"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:text="vs"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="22sp"/>
         <TextView
+            android:id="@+id/tv_player2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="40"
-            android:text="Nico"
-            android:gravity="end"/>
+            android:gravity="start"
+            android:textSize="22sp"/>
 
         </LinearLayout>
 

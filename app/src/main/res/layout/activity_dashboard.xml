@@ -23,4 +23,10 @@
         android:text="Spieler ansehen"
         android:id="@+id/btn_playerList"
         android:layout_gravity="center_horizontal" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Statistiken"
+        android:id="@+id/btn_statistics"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

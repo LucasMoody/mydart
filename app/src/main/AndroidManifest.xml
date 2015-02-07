@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Dashboard"
             android:label="@string/app_name" >
@@ -35,6 +35,18 @@
         <activity
             android:name=".game.x01.X01Activity"
             android:label="@string/title_activity_x01" >
+        </activity>
+        <activity
+            android:name=".statistics.PlayerStatisticsActivity"
+            android:label="@string/title_activity_player_statistics" >
+        </activity>
+        <activity
+            android:name=".statistics.StatisticsOverviewActivity"
+            android:label="@string/title_activity_statistics_overview" >
+        </activity>
+        <activity
+            android:name=".statistics.FinishedPctActivity"
+            android:label="@string/title_activity_finished_pct" >
         </activity>
     </application>
 
