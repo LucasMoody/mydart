@@ -87,14 +87,15 @@ public class StatisticsManager {
                     + " = " + DatabaseContract.X01Scores.COLUMN_NAME_POINTS_LEFT + "GROUP BY " + DatabaseContract.X01Scores.COLUMN_NAME_PLAYER
                     + ") as temp on " + DatabaseContract.Player._ID " = temp." + DatabaseContract.X01Scores.COLUMN_NAME_PLAYER
                     + ")" */
-            Cursor cursor = dbHelper.getReadableDatabase().rawQuery("select username, finishedNo, chanceNo from player, (Select _id, case when tempCol is null then 0 else tempCol end as \"finishedNo\" from player left join (SELECT player, Count(*)  as \"tempCol\" FROM x01scores WHERE (pointsleft < 20 or pointsleft = 25) and hitsection * multiplier = pointsleft GROUP BY player) as temp on player._id = temp.player) as finishedTable, (Select _id, case when tempCol is null then 0 else tempCol end as \"chanceNo\" from player left join (SELECT player, Count(*)  as \"tempCol\" FROM x01scores WHERE pointsleft < 20 or pointsleft = 25 GROUP BY player) as temp on player._id = temp.player) as chanceTable where player._id = finishedTable._id and chanceTable._id = player._id;",null);
+            Cursor cursor = dbHelper.getReadableDatabase().rawQuery("select username, finishedNo, chanceNo from player, (Select _id, case when tempCol is null then 0 else tempCol end as \"finishedNo\" from player left join (SELECT player, Count(*)  as \"tempCol\" FROM x01scores WHERE (pointsleft <= 20 or pointsleft = 25) and hitsection * multiplier = pointsleft GROUP BY player) as temp on player._id = temp.player) as finishedTable, (Select _id, case when tempCol is null then 0 else tempCol end as \"chanceNo\" from player left join (SELECT player, Count(*)  as \"tempCol\" FROM x01scores WHERE pointsleft <= 20 or pointsleft = 25 GROUP BY player) as temp on player._id = temp.player) as chanceTable where player._id = finishedTable._id and chanceTable._id = player._id;",null);
             double finishNo;
             double chanceNo;
+            double finishPct;
             while (cursor.moveToNext()) {
                 finishNo = (double) cursor.getInt(1);
                 chanceNo = (double) cursor.getInt(2);
-
-                result.add(new Pair<String, Double>(cursor.getString(0), finishNo / chanceNo));
+                finishPct = chanceNo == 0 ? 0 : finishNo / chanceNo;
+                result.add(new Pair<String, Double>(cursor.getString(0), finishPct));
             }
             cursor.close();
             return result;

@@ -355,11 +355,11 @@ public class ScoreFragment extends Fragment implements View.OnClickListener{
         //wahrscheinlich geht auch curPlayer.getLegs() > legs || curLeg>legs
 
         //accept um Daten in DB zu speichern und Views zu aktualisieren
-        accept();
-        resetRound(legIncr);
         if ((bestOf && curPlayer.getLegs() >= legs) || curLeg - 1 >=legs) {
             gameOver();
         }
+        accept();
+        resetRound(legIncr);
     }
 
     private void gameOver() {
